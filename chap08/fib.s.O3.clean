@@ -1,0 +1,24 @@
+	.globl	fib     
+fib:    # @fib
+	pushq	%r14
+	pushq	%rbx
+	pushq	%rax
+	xorl	%r14d, %r14d
+	cmpq	$2, %rdi
+	jl	.LBB0_3
+	movq	%rdi, %rbx
+.LBB0_2:                 
+	leaq	-1(%rbx), %rdi
+	callq	fib
+	leaq	-2(%rbx), %rdi
+	addq	%rax, %r14
+	cmpq	$3, %rbx
+	movq	%rdi, %rbx
+	jg	.LBB0_2
+.LBB0_3:
+	addq	%rdi, %r14
+	movq	%r14, %rax
+	addq	$8, %rsp
+	popq	%rbx
+	popq	%r14
+	retq
