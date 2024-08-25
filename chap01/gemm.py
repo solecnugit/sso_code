@@ -3,16 +3,16 @@ from time import *
 
 n = 4096
 
-A = [[random.random() 
+A = [[random.random()
       for row in range(n)]
-    for col in range(n)]
+     for col in range(n)]
 
-B = [[random.random() 
+B = [[random.random()
       for row in range(n)]
-    for col in range(n)]
+     for col in range(n)]
 
 C = [[0 for row in range(n)]
-    for col in range(n)]
+     for col in range(n)]
 
 
 start = time()

@@ -24,15 +24,18 @@ int main(int argc, const char *argv[]) {
     }
 
     struct timeval start, end;
+    int ih, il, jh, jl, kh, kl;
     gettimeofday(&start, NULL);
-    #pragma omp parallel for schedule(static) shared(A, B, C)
-    for (i = 0; i < n; i++) {
-        for (k = 0; k < n; k++) {
-            for (j = 0; j < n; j++) {
-                C[i][j] += A[i][k] * B[k][j];
-            }
-        }
-    }
+    
+    // S 为具体的分块大小，编译时通过命令行传入
+    #pragma omp parallel for shared(A, B, C) schedule(static) collapse(2)
+    for (ih = 0; ih < n; ih += S)
+        for (jh = 0; jh < n; jh += S)
+            for (kh = 0; kh < n; kh += S)
+                for (il = 0; il < S; il++)
+                    for (kl = 0; kl < S; kl++)
+                        for (jl = 0; jl < S; jl++)
+                            C[ih + il][jh + jl] += A[ih + il][kh + kl] * B[kh + kl][jh + jl];
     gettimeofday(&end, NULL);
 
     printf("%.2f\n", tdiff(&start, &end));

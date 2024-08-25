@@ -8,9 +8,8 @@ public class gemm {
 
 	public static void main(String[] args) {
 		Random r = new Random();
-
-		for(int i=0; i<n; i++) {
-			for(int j=0; j<n; j++) {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
 				A[i][j] = r.nextDouble();
 				B[i][j] = r.nextDouble();
 				C[i][j] = 0;
@@ -18,15 +17,13 @@ public class gemm {
 		}
 
 		long start = System.nanoTime();
-
-		for(int i=0; i<n; i++) {
-			for(int j=0; j<n; j++) {
-				for(int k=0; k<n; k++) {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				for (int k = 0; k < n; k++) {
 					C[i][j] += A[i][k] * B[k][j];
 				}
 			}
 		}
-
 		long end = System.nanoTime();
 
 		double tdiff = (end - start) * 1e-9;
